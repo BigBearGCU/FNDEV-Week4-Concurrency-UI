@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,18 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void startTaskBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Task.Run(() =>
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        progressBar.Dispatcher.Invoke(() => progressBar.Value = i);
+                        Thread.Sleep(1000);
+                    }
+                });
         }
     }
 }
